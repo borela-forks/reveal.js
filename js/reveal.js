@@ -2631,6 +2631,21 @@
 
 		// Attempt to create a named link based on the slide's ID
 		var id = currentSlide ? currentSlide.getAttribute( 'id' ) : null;
+
+		// Minor patch to find parent slide name.
+		if ( id === null ) {
+			let sanity = 10
+			let parent = currentSlide.parentNode
+			let parentId = parent.getAttribute( 'id' )
+
+			while ( !parentId && --sanity >= 0 ) {
+				parent = parent.parentNode
+				parentId = parent.getAttribute( 'id' )
+			}
+
+			id = parentId
+		}
+
 		if( id ) {
 			id = encodeURIComponent( id );
 		}
